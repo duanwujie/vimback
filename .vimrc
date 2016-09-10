@@ -1,13 +1,18 @@
 " for vim
-set nocompatible
+"set nocompatible
 
 
 syntax enable
 filetype plugin indent on
 set nowrap
 set foldmethod=marker
-set expandtab
 
+" tab键默认4空格
+set ts=4
+set expandtab
+set autoindent
+
+set backspace=indent,eol,start
 
 " for search
 set hlsearch
@@ -63,7 +68,7 @@ endif
 set mouse=a                            "这个设置是必须的，这样才能点击标签
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Enable_Fold_Column = 0
-let Tlist_Use_Right_Window=1 
+let Tlist_Use_Left_Window=1 
 let Tlist_Use_SingleClick=1             "设置单击一次tag即跳转到定义，默认为双击
 let Tlist_Auto_Open = 1                "设置开启vim自动打开Tlist
 " clang_complete
@@ -79,3 +84,40 @@ map <silent> <F2> :TlistOpen<CR>
 
 let tlist_mql4_settings = 'c;f:Functions'
 
+
+" 按退格键时判断当前光标前一个字符，如果是左括号，则删除对应的右括号以及括号中间的内容
+function! RemovePairs()
+	let l:line = getline(".")
+	let l:previous_char = l:line[col(".")-1] " 取得当前光标前一个字符
+ 
+	if index(["(", "[", "{"], l:previous_char) != -1
+		let l:original_pos = getpos(".")
+		execute "normal %"
+		let l:new_pos = getpos(".")
+ 
+		" 如果没有匹配的右括号
+		if l:original_pos == l:new_pos
+			execute "normal! a\<BS>"
+			return
+		end
+ 
+		let l:line2 = getline(".")
+		if len(l:line2) == col(".")
+			" 如果右括号是当前行最后一个字符
+			execute "normal! v%xa"
+		else
+			" 如果右括号不是当前行最后一个字符
+			execute "normal! v%xi"
+		end
+ 
+	else
+		execute "normal! a\<BS>"
+	end
+endfunction
+" 用退格键删除一个左括号时同时删除对应的右括号
+inoremap <BS> <ESC>:call RemovePairs()<CR>a
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+"inoremap { {}<LEFT>
+set tabstop=4
+inoremap { {<ENTER><TAB><ENTER>}<UP><ESC>$i
