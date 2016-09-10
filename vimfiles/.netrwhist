@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/sxkj26/works/tar-1.27.1/src'
+let g:netrw_dirhist_2='/home/sxkj26/works/busybox-1.21.1/init'
+let g:netrw_dirhist_3='/home/sxkj26/works/android-busybox-ndk/busybox-git.arm/init'
+let g:netrw_dirhist_4='/home/sxkj26/works/android-busybox-ndk/busybox-git.arm/procps'
+let g:netrw_dirhist_5='/home/sxkj26/workspace/andtar/libbb'
+let g:netrw_dirhist_6='/home/sxkj26/workspace/busybox-git.arm/include'
