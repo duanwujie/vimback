@@ -1,5 +1,6 @@
 " for vim
-"set nocompatible
+set nocompatible
+
 
 
 syntax enable
@@ -11,8 +12,9 @@ set foldmethod=marker
 set ts=4
 set expandtab
 set autoindent
+set backspace=2
 
-set backspace=indent,eol,start
+"set backspace=indent,eol,start
 
 " for search
 set hlsearch
